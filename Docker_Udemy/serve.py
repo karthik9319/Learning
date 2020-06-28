@@ -1,6 +1,6 @@
 import argparse
 import logging
-# import sagemaker_containers
+import sagemaker_containers
 import requests
 from subprocess import call
 

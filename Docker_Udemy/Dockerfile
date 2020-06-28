@@ -27,7 +27,11 @@ FROM python:3.7-slim
 LABEL maintainer = "Karthik Vullam"
 
 # ADD serve.py /
-COPY /serve.py /app/serve.py
+# ENV /serve.py 
+# ADD /serve $qpath
+# COPY /serve.py $(PWD)/app/serve.py
+# RUN echo "$PWD"
+COPY serve.py .
 
 RUN apt-get update && \
     apt-get -y install gcc mono-mcs && \
@@ -40,9 +44,10 @@ RUN pip install --no-cache-dir boto3
 RUN pip install --no-cache-dir pillow
 RUN pip install --no-cache-dir gunicorn
 RUN pip install torch torchvision
+RUN pip install fastai
 RUN pip install sagemaker_containers
-RUN pip install --no-cache-dir fastai
 
-WORKDIR /app
+
+# WORKDIR /app
 
 CMD [ "python", "serve.py" ]
